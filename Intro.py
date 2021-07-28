@@ -26,4 +26,4 @@ print('Sensor test results:')
 print('''Sensor data acquisition commencing...
 CSV created, see XXXXXX @ LOCATION''')
 
-# Would you like to view a live data plot? #
+# Would you like to view a live data plot? (y/n) #
