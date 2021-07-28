@@ -1,16 +1,16 @@
-# This is a sample Python script.
+from time import sleep, strftime, time
+import intro
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# (un)comment programs in block below to adjust programs' access to the various sensor/control functionality available #
+# see individual code files to
+# import Temp_monitor # **essential for reactor automation** various temperature sensors
+# import TSL2591 # **optional** high dynamic range digital light sensor
+# import VEML6070 # **optional** generic i2c UV sensor
+# import VEML7700 # **optional** high accuracy i2c ambient light sensor
+# import Flow_control # **WARNING if disabled, reactor MUST be manually controlled and monitored**
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+sleep(1)
