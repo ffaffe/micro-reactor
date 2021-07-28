@@ -22,5 +22,8 @@ else:
 
 print('')
 print(strftime("%a, %d %b %Y %H:%M:%S \n"))
+print('Sensor test results:')
 print('''Sensor data acquisition commencing...
-.CSV created, see XXXXXX @ LOCATION''')
+CSV created, see XXXXXX @ LOCATION''')
+
+# Would you like to view a live data plot? #
