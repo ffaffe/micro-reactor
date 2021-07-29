@@ -21,6 +21,3 @@ Monitoring will be achieved using 1Wire temperature sensors, a PiCamera v2.0 Noi
                   after X mins and/or no decrease in temp, increase fan power (maybe 3-5 power levels)
                 3. if all warnings and remedial actions above fail to lower lamp temp
                     Kill lamp power, all fans to full, kill reactant flow, sound V loud/obvious alarm, (maybe send notification emails to supervisor about the error.
-                
-                trigger flow OFF after *2-10mins* of excess temp detected inside lamp
-             
