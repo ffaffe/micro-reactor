@@ -11,7 +11,7 @@ HEIGHT = 1024
 xVelocity = 0
 yVelocity = 1.6 # 1.6 ideal #
 
-# framework for SScreen, all other parts added to this #
+# framework for app, all other parts added to this #
 root = tk.Tk()
 window = Tk()
 top = Toplevel()
@@ -21,6 +21,7 @@ top.attributes("-topmost", True)  # sets as topmost screen --> hides the dodgy p
 canvas = Canvas(top, width=WIDTH, height=HEIGHT, bg='orange')
 canvas.pack()
 
+# planning to make 'sliding' appear one letter at a time as KL slides down --> basic timer + 8 versions of cylinder#.png
 background_photo = PhotoImage(file='cylinder3.png')
 background = canvas.create_image(400, 512, image=background_photo, anchor='center')
 
