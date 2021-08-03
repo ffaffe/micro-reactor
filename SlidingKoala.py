@@ -9,7 +9,7 @@ import os
 WIDTH = 800
 HEIGHT = 1024
 xVelocity = 0
-yVelocity = 250
+yVelocity = 1.6 # 1.6 ideal #
 
 # framework for SScreen, all other parts added to this #
 root = tk.Tk()
@@ -31,7 +31,7 @@ image_width = photo_image.width()
 image_height = photo_image.height()
 
 start_time = time.time()
-seconds = 12  # 12 second = full bounce #
+seconds = 6  # 12 second = full bounce #
 
 while True:
     coordinates = canvas.coords(my_image)
