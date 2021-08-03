@@ -9,3 +9,4 @@
 # tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_13MS);      /* fastest & lowest res */
 # tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_101MS);  /* balanced performance - DEFAULT */
 # tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_402MS);  /* slowest & highest res --> 16-bit data! */
+
