@@ -1,0 +1,1 @@
+omxplayer --display=7 --orientation=180 /opt/vc/src/hello_pi/hello_video/test.h264
