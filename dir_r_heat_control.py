@@ -1,3 +1,6 @@
+# first half of code is logging relevant sensor data
+# second half is temp control measures
+
 from time import time, sleep, strftime
 import csv
 import os
@@ -5,23 +8,32 @@ import os
 # comment out
 print(strftime("%a, %d %b %y"))
 
-# define csv filenames & directory #
-folder1 = "Temperature logs"
-folder2 = "Reactor internal"
+# define csv filenames & directories #
+folder1 = "Temperature_logs"
+folder2 = "Reactor_internal"
 folder_date = strftime("%d%m%y")
 folder3 = folder_date
 file_date = strftime("%H%M%S")
 filename1 = file_date
 cwd = os.getcwd()
-save_dir = os.path.join(cwd,folder1, folder2, folder3, filename1)
+
+# check for existing directory to avoid overwrites/errors
+save_dir = os.path.join(cwd, folder1, folder2, folder3, filename1)
+save_dir1 = os.path.join(cwd, folder1, folder2, folder3)
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir1)
+
+# writing header row of csv
 f = open(save_dir + ".csv", "a", newline="")
 c = csv.writer(f)
 c.writerow([strftime('%d-%m-%Y, %H:%M:%S')])
 c.writerow(["Time:", "Sensor 1:", "Sensor 2:", "Average:"])
 
+# defining names & addr of each sensor to be used for heater control --> if altered, take care with downstream links
 ts_1 = "/sys/bus/w1/devices/28-000008db19eb/w1_slave"
 ts_2 = "/sys/bus/w1/devices/28-00000bc54f93/w1_slave"
 
+# open loop for continuous logging
 while True:
     # S1 #
     f = open(ts_1, "r")
@@ -44,7 +56,8 @@ while True:
     print(strftime("%H %M %S"))
     print(av_temp)
 
-    f = open(filename1 + ".csv", "a", newline="")
+    # actual data to csv writing
+    f = open(save_dir + ".csv", "a", newline="")
     c = csv.writer(f)
     date_time = strftime("%H.%M.%S")
     c.writerow([date_time, t1, t2, av_temp])
