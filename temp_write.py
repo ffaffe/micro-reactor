@@ -23,6 +23,8 @@ while True:
     date_time = time.strftime("%H:%M:%S")
     print("\n ************************** \n")
     print(date_time)
+
+    # S1 #
     f = open(ts_1, "r")
     data = f.read()
     f.close()
