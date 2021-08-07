@@ -80,7 +80,7 @@ openFile = tk.Button(canvas1, text="Import custom code...", padx=10, pady=5, fg=
                      command=addCode)
 openFile.place(x=550, y=730)
 
-photo = PhotoImage(file="C:\\Python trials\\stopsign100x100.png")
+photo = PhotoImage(file="stopsign100x100.png")
 B1 = tk.Button(canvas1, text="Full System HALT", relief="raised", bg="white", fg="red", image=photo,
                activebackground="black", activeforeground="black", width=100, height=100)
 B1.place(x=575, y=50)
