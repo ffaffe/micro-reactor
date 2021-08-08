@@ -3,13 +3,12 @@ from tkinter import filedialog
 import tkinter as tk
 import time
 from time import sleep
-import os
 
 # splash screen params #
 WIDTH = 800
 HEIGHT = 1024
 xVelocity = 0
-yVelocity = 1.6 # 1.6 ideal #
+yVelocity = 1.6  # 1.6 ideal #
 
 # framework for app, all other parts added to this #
 root = tk.Tk()
@@ -51,7 +50,7 @@ while True:
         break
 
 
-# assigning function to add custom code button #
+# creating function for add custom code button #
 def addCode():
     filename = filedialog.askopenfilename(initialdir="/", title="Select .py file", filetypes=[("Python files", '*.py')])
 
@@ -76,17 +75,20 @@ frame.place(relwidth=1, relheight=0.04)
 # frame2= tk.Frame(root, bg="gray")
 # frame2.place(relwidth=1, relheight=0.03, rely=0.97)
 
+# button
 openFile = tk.Button(canvas1, text="Import custom code...", padx=10, pady=5, fg="black", bg="yellow", relief="raised",
                      command=addCode)
 openFile.place(x=550, y=730)
 
+# button
 photo = PhotoImage(file="stopsign100x100.png")
 B1 = tk.Button(canvas1, text="Full System HALT", relief="raised", bg="white", fg="red", image=photo,
                activebackground="black", activeforeground="black", width=100, height=100)
 B1.place(x=575, y=50)
 
+# button
 BigShinyButton = tk.Button(root, text="GO!", font="Times 45 bold", padx=75, pady=75, fg="black", bg="Green",
-                           relief="raised", activebackground="Blue", activeforeground="yellow",)
+                           relief="raised", activebackground="Blue", activeforeground="yellow", )
 BigShinyButton.place(x=210, y=300)
 
 window.destroy()
