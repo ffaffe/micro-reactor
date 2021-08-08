@@ -1,5 +1,11 @@
 from time import sleep, strftime, time
 import intro
+import lamp_protect
+
+
+lamp_protect.myfunc()
+
+
 
 # (un)comment programs in block below to adjust programs' access to the various sensor/control functionality available #
 # see individual code files to
