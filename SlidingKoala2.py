@@ -4,6 +4,7 @@ import tkinter as tk
 import time
 from time import sleep
 from all_temp_logger import main
+# from PIL import ImageTk, Image      # pip3 install Pillow
 # from Sensor_test import sens_test
 # from VEML6070 import
 # from VEML7700 import
@@ -19,7 +20,7 @@ import os
 WIDTH = 1024
 HEIGHT = 600
 xVelocity = 0
-yVelocity = 1.6  # 1.6 ideal #
+yVelocity = 1  # 1 ideal #
 
 # framework for app, all other parts added to this #
 root = tk.Tk()
@@ -28,33 +29,36 @@ top = Toplevel()
 root.resizable(False, False)
 top.attributes("-topmost", True)  # sets as topmost screen --> hides the dodgy pop ups I can't get rid of... #
 
-canvas = Canvas(top, width=WIDTH, height=HEIGHT, bg='orange')
+canvas = Canvas(top, width=WIDTH, height=HEIGHT, bg='white')
 canvas.pack()
 
 # planning to make 'sliding' appear one letter at a time as KL slides down --> basic timer + 8 versions of cylinder#.png
-background_photo = PhotoImage(file='cylinder3.png')
-background = canvas.create_image(400, 512, image=background_photo, anchor='center')
+background_photo = PhotoImage(file='bg1.png')
+background = canvas.create_image(0, 0, image=background_photo, anchor=NW)
 
 photo_image = PhotoImage(file='KL3.png')
-my_image = canvas.create_image(427, 200, image=photo_image, anchor='center')
-
+my_image = canvas.create_image(150, 150, image=photo_image, anchor='center')
 image_width = photo_image.width()
 image_height = photo_image.height()
 
 start_time = time.time()
-seconds = 1  # 12 second = full bounce #
+seconds = 6  # 12 second = full bounce #
 
 while True:
     coordinates = canvas.coords(my_image)
-    if coordinates[0] >= (WIDTH - image_width) or coordinates[0] < 0:
-        xVelocity = -xVelocity
-    if coordinates[1] >= (HEIGHT - image_height) or coordinates[1] < 0:
-        yVelocity = -yVelocity
+    # if coordinates[0] >= (WIDTH - image_width) or coordinates[0] < 0:
+    #    xVelocity = -xVelocity
+    # if coordinates[1] >= (HEIGHT - image_height) or coordinates[1] < 0:
+    #    yVelocity = -yVelocity
     canvas.move(my_image, xVelocity, yVelocity)
     window.update()
     time.sleep(0.01)
     current_time = time.time()
     elapsed_time = current_time - start_time
+    if 1 < elapsed_time < 2:
+        photo_image = PhotoImage(file='bg1_s.png')
+        canvas.move(my_image, xVelocity, yVelocity)
+        window.update()
     if elapsed_time > seconds:
         sleep(1)
         top.destroy()
@@ -190,6 +194,7 @@ while True:
                               activebackground="white", activeforeground="black")
     readme_button.place(x=810, y=565)
 
+
     # About system button
     def open_Rme():
         top1 = Toplevel()
@@ -201,7 +206,7 @@ while True:
         l3 = Label(top1, text="\nThis system was designed and brought to fruition by Harvey West during his 2021"
                               " summer internship. Dr Konstantin Luzyanin acting as project supervisor, was a "
                               "continuous source of inspiration, advice, and passionate encouragement, who was never"
-                              " afraid to throw his creative spanner in the works. Stephen Moss's door was always open"
+                              " afraid to throw his creative spanner into the works. Stephen Moss's door was always open"
                               " for stimulating and productive conversation, facilitating many changes to 'the plan',"
                               " without which, this project would not have succeeded! \n\nWith special thanks to"
                               " Professor Berry and the University of Liverpool's Department of Chemistry for"
@@ -209,6 +214,7 @@ while True:
                               "whomever is brave enough to develop this system further... \n\n\nʕ•ᴥ•ʔ",
                    font="Helvetica 10", wraplength=280)
         l3.pack()
+
 
     about_sys_button = tk.Button(root, relief="raised", activebackground="black", activeforeground="white",
                                  bitmap="info", command=open_Rme)
