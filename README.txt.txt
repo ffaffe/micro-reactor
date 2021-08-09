@@ -7,3 +7,8 @@ Sorry.
 Also... There is no cake. It was all a lie.
 
 ʕ•ᴥ•ʔ
+
+
+Serious things to include:
+libs to install
+LCD Screen flip instructions

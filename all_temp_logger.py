@@ -1,16 +1,12 @@
-import time
+from time import strftime, time, sleep
 import csv
+import os
 
 
 # comment out def main(): AND remove indent to convert back to individually executable python script
 # in use in GUI app #
 def main():
-    print(time.strftime("%a, %d %b %y"))
-
-    f = open("test.csv", "a", newline="")
-    c = csv.writer(f)
-    c.writerow([time.strftime('%d-%m-%Y, %H:%M:%S')])
-    c.writerow(["Time:", "Sensor 1:", "Sensor 2:", "Sensor 3:", "Sensor 4:", "Sensor 5:", "Sensor 6:"])
+    print("logging started")
 
     ts_1 = "/sys/bus/w1/devices/28-000008db19eb/w1_slave"
     ts_2 = "/sys/bus/w1/devices/28-00000bc54f93/w1_slave"
@@ -22,9 +18,30 @@ def main():
     # uncomment below to add sample range --> number of temp values to be measured #
     # range = 0
 
+    # define csv filenames & directories #
+    folder1 = "Temperature_logs"
+    folder2 = "Full_system"
+    folder_date = strftime("%d%m%y")
+    folder3 = folder_date
+    file_date = strftime("%H%M%S")
+    filename1 = file_date
+    cwd = os.getcwd()
+
+    # check for existing directory to avoid overwrites/errors
+    save_dir2 = os.path.join(cwd, folder1, folder2, folder3, filename1)
+    save_dir3 = os.path.join(cwd, folder1, folder2, folder3)
+    if not os.path.exists(save_dir3):
+        os.makedirs(save_dir3)
+
+    # writing header row of csv
+    f = open(save_dir2 + ".csv", "a", newline="")
+    c = csv.writer(f)
+    c.writerow([strftime('%d-%m-%Y, %H:%M:%S')])
+    c.writerow(["Time:", "Sensor 1:", "Sensor 2:", "Sensor 3:", "Sensor 4:", "Sensor 5:", "Sensor 6:"])
+
     while True:
         # r += 1 # count up component of range argument above #
-        date_time = time.strftime("%H:%M:%S")
+        date_time = strftime("%H:%M:%S")
         print("\n ************************** \n")
         print(date_time)
 
@@ -77,12 +94,16 @@ def main():
         print("{} {:.3f}".format("Sensor 5 =", t5))
         print("{} {:.3f}".format("Sensor 6 =", t6))
 
-        f = open("test.csv", "a", newline="")
+        f = open(save_dir2 + ".csv", "a", newline="")
         c = csv.writer(f)
-
         c.writerow([date_time, t1, t2, t3, t4, t5, t6])
+        f.close()
 
-        time.sleep(1.0)
+        sleep(1.0)
 
     # 28-000008db19eb  28-00000bc54f93  28-0319160dfae2  w1_bus_master1
     # 28-000008db57e2  28-00000bc6dbf5  28-0319161bebb6
+
+
+
+

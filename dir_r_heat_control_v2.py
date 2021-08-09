@@ -1,5 +1,6 @@
-# first half of code is logging relevant sensor data
-# second half is temp control measures
+# first third of code is defining the save directory
+# second third of code is logging relevant sensor data
+# last third is temp control measures
 
 from time import time, sleep, strftime
 import csv
@@ -21,7 +22,7 @@ cwd = os.getcwd()
 # check for existing directory to avoid overwrites/errors
 save_dir = os.path.join(cwd, folder1, folder2, folder3, filename1)
 save_dir1 = os.path.join(cwd, folder1, folder2, folder3)
-if not os.path.exists(save_dir):
+if not os.path.exists(save_dir1):
     os.makedirs(save_dir1)
 
 # writing header row of csv
@@ -29,6 +30,7 @@ f = open(save_dir + ".csv", "a", newline="")
 c = csv.writer(f)
 c.writerow([strftime('%d-%m-%Y, %H:%M:%S')])
 c.writerow(["Time:", "Sensor 1:", "Sensor 2:", "Average:"])
+f.close()
 
 # defining names & addr of each sensor to be used for heater control --> if altered, take care with downstream links
 ts_1 = "/sys/bus/w1/devices/28-000008db19eb/w1_slave"
@@ -80,6 +82,7 @@ while True:
     c = csv.writer(f)
     date_time = strftime("%H.%M.%S")
     c.writerow([date_time, t1, t2, av_temp])
+    f.close()
 
     if av_temp >= 50:                           # burst heating mode
         GPIO.output(relay1_GPIO, GPIO.HIGH)     # heater ON
@@ -98,6 +101,7 @@ while True:
             c = csv.writer(f)
             date_time = strftime("%H.%M.%S")
             c.writerow([date_time, t1, t2, av_temp])
+            f.close()
 
     elif av_temp >= 55:
         GPIO.output(relay1_GPIO, GPIO.HIGH)  # heater ON

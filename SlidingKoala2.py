@@ -4,6 +4,7 @@ import tkinter as tk
 import time
 from time import sleep
 from all_temp_logger import main
+from ril import main1
 # from PIL import ImageTk, Image      # pip3 install Pillow
 # from Sensor_test import sens_test
 # from VEML6070 import
@@ -42,7 +43,7 @@ image_width = photo_image.width()
 image_height = photo_image.height()
 
 start_time = time.time()
-seconds = 6  # 12 second = full bounce #
+seconds = 1  # 12 second = full bounce #
 
 while True:
     coordinates = canvas.coords(my_image)
@@ -69,10 +70,8 @@ while True:
     def runscript(args):
         if args == 1:  # all temp
             os.system(main())
-
-
-    #    if args == 2:                   # reactor internal temp
-    #        os.system(main())
+        if args == 2:                   # reactor internal temp
+            os.system(main1())
     #    if args == 3:                   # lamp temp
     #        os.system(main())
     #    if args == 4:                   # bottle temp
@@ -199,7 +198,7 @@ while True:
     def open_Rme():
         top1 = Toplevel()
         top1.geometry("300x500")
-        top1.title("toplevel")
+        top1.title("About")
         top1.attributes("-topmost", True)
         l2 = Label(top1, text="System information", font="Helvetica 16 bold underline")
         l2.pack()
