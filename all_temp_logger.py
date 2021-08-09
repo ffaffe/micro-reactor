@@ -87,13 +87,6 @@ def main():
         (discard, sep, reading) = data.partition(' t=')
         t6 = float(reading) / 1000.0
 
-        print("{} {:.3f}".format("Sensor 1 =", t1))
-        print("{} {:.3f}".format("Sensor 2 =", t2))
-        print("{} {:.3f}".format("Sensor 3 =", t3))
-        print("{} {:.3f}".format("Sensor 4 =", t4))
-        print("{} {:.3f}".format("Sensor 5 =", t5))
-        print("{} {:.3f}".format("Sensor 6 =", t6))
-
         f = open(save_dir2 + ".csv", "a", newline="")
         c = csv.writer(f)
         c.writerow([date_time, t1, t2, t3, t4, t5, t6])
