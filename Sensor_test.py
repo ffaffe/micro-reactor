@@ -1,7 +1,7 @@
 # short and sweet check of the relevant sensor connections, including listing all detected ds18b20 temp sensors
-#import board
-#import digitalio
-#import busio
+import board
+import digitalio
+import busio
 from time import sleep
 
 
