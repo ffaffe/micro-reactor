@@ -3,10 +3,6 @@ from tkinter import filedialog
 import tkinter as tk
 import time
 from time import sleep
-import matplotlib
-matplotlib.use("TkAgg")     # backend of matplotlib --> allows use with TKinter+
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-from mat
 from all_temp_logger import main
 from ril import main1
 from PIL import Image
@@ -21,147 +17,147 @@ from precon_input import precon_inp
 import os
 
 # to add matplotlib in central space see below
-# hs://www.youtube.com/watch?list=PLQVvvaa0QuDclKx-QpC9wntnURXVJqLyk&v=JQ7QP5rPvjU&feature=youtu.be
-#
-#
-# # splash screen params #
-# WIDTH = 1366
-# HEIGHT = 768
-# xVelocity = 0
-# yVelocity = 1  # 1 ideal #
-#
-# # framework for app, all other parts added to this #
-# root = tk.Tk()
-# window = Tk()
-# top = Toplevel()
-# root.resizable(False, False)
-# top.attributes("-topmost", True)  # sets as topmost screen --> hides the dodgy pop ups I can't get rid of... #
-#
-# canvas = Canvas(top, width=WIDTH, height=HEIGHT, bg='white')
-# canvas.pack()
-#
-# # planning to make 'sliding' appear one letter at a time as KL slides down --> basic timer + 8 versions of cylinder#.png
-# background_photo = PhotoImage(file='gif_1.gif')
-# # PIL.Image.new(mode="RGB", size=(1366, 768))
-# background = canvas.create_image(0, 0, image=background_photo, anchor=NW)
-# # background_photo.seek(6)
-# # background_photo.show()
-#
-# # with Image.open("gif_1.gif") as background_photo:
-# #   background_photo.seek(1)
-#
-# #  try:
-# #     while 1:
-# #        background_photo.seek(background_photo.tell()+1)
-# # except EOFError:
-# #      pass
-#
-# photo_image = PhotoImage(file='KL3.png')
-# my_image = canvas.create_image(150, 150, image=photo_image, anchor='center')
-# image_width = photo_image.width()
-# image_height = photo_image.height()
-#
-# start_time = time.time()
-# seconds = 0.5  # 12 second = full bounce #
-#
-# while True:
-#     coordinates = canvas.coords(my_image)
-#     # if coordinates[0] >= (WIDTH - image_width) or coordinates[0] < 0:
-#     #    xVelocity = -xVelocity
-#     # if coordinates[1] >= (HEIGHT - image_height) or coordinates[1] < 0:
-#     #    yVelocity = -yVelocity
-#     canvas.move(my_image, xVelocity, yVelocity)
-#     window.update()
-#     time.sleep(0.01)
-#     current_time = time.time()
-#     elapsed_time = current_time - start_time
-#     #  if 1 < elapsed_time < 2:
-#     #     photo_image = PhotoImage(file='bg1_s.png')
-#     #    canvas.move(my_image, xVelocity, yVelocity)
-#     #      window.update()
-#     if elapsed_time > seconds:
-#         sleep(1)
-#         top.destroy()
-#         break
-#
-# while True:
-#     # creates run script function for any buttons that need it
-#     def runscript(args):
-#         if args == 1:  # all temp
-#             os.system(main())
-#         if args == 2:  # reactor internal temp
-#             os.system(main1())
-#
-#
-#     #    if args == 3:                   # lamp temp
-#     #        os.system(main())
-#     #    if args == 4:                   # bottle temp
-#     #        os.system(main())
-#     #    if args == 5:                   # all light sensors
-#     #        os.system(main())
-#     #    if args == 6:                   # v6070
-#     #        os.system(main())
-#     #    if args == 7:                   # v7700
-#     #        os.system(main())
-#     #    if args == 8:                   # tsl2591
-#     #        os.system(main())
-#     #    if args == 9:                   # basic sensor test
-#     #        os.system(sens_test())
-#
-#     # creating function for add custom code button #
-#     def addCode():
-#         filename = filedialog.askopenfilename(initialdir="/", title="Select .py file",
-#                                               filetypes=[("Python files", '*.py')])
-#
-#
-#     def exec_program():
-#         program1 = filedialog.askopenfilename(initialdir="/", title="Select .exe file",
-#                                               filetypes=[("Executable", '*.exe')])
-#         os.system(program1)
-#
-#
-#     # first full auto function --> precondition window/input/setup
-#     def open_precon_window():
-#         def print_e1e2():
-#             e1 = entry1.get()
-#             e2 = entry2.get()
-#             e3 = entry3.get()
-#             sleep(0.5)
-#             confirm_splash = Toplevel()
-#             confirm_splash.geometry("1366x768+0+0")
-#             confirm_splash.title("Preconditioning confirmation...")
-#             confirm_splash.attributes("-topmost", True)
-#             confirm_splash_l1 = Label(confirm_splash, text="Please review the provided inputs summarised below."
-#                                                            " \n\n\n\n\n\n\n\n\n\n\nIn the event of errors, please"
-#                                                            " close this window, return to the app home screen and"
-#                                                            " restart the program.",
-#                                       font="Helvetica 20 bold")
-#             confirm_splash_l1.place(x=0, y=25)
-#             confirm_splash_l2a = Label(confirm_splash, text="Temperature(s) (\u2070C):", font="Helvetica 18 underline",
-#                                        justify=CENTER)
-#             confirm_splash_l2a.place(x=550, y=100)
-#             confirm_splash_l2 = Label(confirm_splash, text="\nReactor internal = {} "
-#                                                            "\nReagent bottle 1 = {} ".format(e1, e2),
-#                                       font="Helvetica 16", justify=CENTER)
-#             confirm_splash_l2.place(x=600, y=130)
-#             confirm_splash_l2b = Label(confirm_splash, text="Flow rate(s) (m\u00B3s\u207B\u00B9):",
-#                                        font="Helvetica 18 underline", justify=CENTER)
-#             confirm_splash_l2b.place(x=550, y=250)
-#             confirm_splash_l2e = Label(confirm_splash, text="\nInitial flow rate = {}".format(e3),
-#                                        font="Helvetica 16", justify=CENTER)
-#             confirm_splash_l2e.place(x=600, y=280)
-#
-#             confirm_splash_l3 = Label(confirm_splash, text="-- WARNING --\nDespite the 'fully autonomous' label of this"
-#                                                            " program and the device it controls, it is NOT intended for"
-#                                                            " unsupervised operation. \nFurthermore, please ensure all"
-#                                                            " relevant risk assessments and COSHH requirements for this"
-#                                                            " experiment have been completed...",
-#                                       font="Helvetica 21", justify=CENTER, wraplength=1366, fg="red")
-#             confirm_splash_l3.place(x=0, y=420)   # lol
-#             # for KL /u1F49A
-#             confirm_splash_l3 = Label(confirm_splash, text="ʕ•ᴥ•ʔ",
-#                                       font="Helvetica 24", justify=CENTER, wraplength=1366, fg="Green")
-#             confirm_splash_l3.place(x=625, y=675)ttp
+# https://www.youtube.com/watch?list=PLQVvvaa0QuDclKx-QpC9wntnURXVJqLyk&v=JQ7QP5rPvjU&feature=youtu.be
+
+
+# splash screen params #
+WIDTH = 1366
+HEIGHT = 768
+xVelocity = 0
+yVelocity = 1  # 1 ideal #
+
+# framework for app, all other parts added to this #
+root = tk.Tk()
+window = Tk()
+top = Toplevel()
+root.resizable(False, False)
+top.attributes("-topmost", True)  # sets as topmost screen --> hides the dodgy pop ups I can't get rid of... #
+
+canvas = Canvas(top, width=WIDTH, height=HEIGHT, bg='white')
+canvas.pack()
+
+# planning to make 'sliding' appear one letter at a time as KL slides down --> basic timer + 8 versions of cylinder#.png
+background_photo = PhotoImage(file='gif_1.gif')
+# PIL.Image.new(mode="RGB", size=(1366, 768))
+background = canvas.create_image(0, 0, image=background_photo, anchor=NW)
+# background_photo.seek(6)
+# background_photo.show()
+
+# with Image.open("gif_1.gif") as background_photo:
+#   background_photo.seek(1)
+
+#  try:
+#     while 1:
+#        background_photo.seek(background_photo.tell()+1)
+# except EOFError:
+#      pass
+
+photo_image = PhotoImage(file='KL3.png')
+my_image = canvas.create_image(150, 150, image=photo_image, anchor='center')
+image_width = photo_image.width()
+image_height = photo_image.height()
+
+start_time = time.time()
+seconds = 0.5  # 12 second = full bounce #
+
+while True:
+    coordinates = canvas.coords(my_image)
+    # if coordinates[0] >= (WIDTH - image_width) or coordinates[0] < 0:
+    #    xVelocity = -xVelocity
+    # if coordinates[1] >= (HEIGHT - image_height) or coordinates[1] < 0:
+    #    yVelocity = -yVelocity
+    canvas.move(my_image, xVelocity, yVelocity)
+    window.update()
+    time.sleep(0.01)
+    current_time = time.time()
+    elapsed_time = current_time - start_time
+    #  if 1 < elapsed_time < 2:
+    #     photo_image = PhotoImage(file='bg1_s.png')
+    #    canvas.move(my_image, xVelocity, yVelocity)
+    #      window.update()
+    if elapsed_time > seconds:
+        sleep(1)
+        top.destroy()
+        break
+
+while True:
+    # creates run script function for any buttons that need it
+    def runscript(args):
+        if args == 1:  # all temp
+            os.system(main())
+        if args == 2:  # reactor internal temp
+            os.system(main1())
+
+
+    #    if args == 3:                   # lamp temp
+    #        os.system(main())
+    #    if args == 4:                   # bottle temp
+    #        os.system(main())
+    #    if args == 5:                   # all light sensors
+    #        os.system(main())
+    #    if args == 6:                   # v6070
+    #        os.system(main())
+    #    if args == 7:                   # v7700
+    #        os.system(main())
+    #    if args == 8:                   # tsl2591
+    #        os.system(main())
+    #    if args == 9:                   # basic sensor test
+    #        os.system(sens_test())
+
+    # creating function for add custom code button #
+    def addCode():
+        filename = filedialog.askopenfilename(initialdir="/", title="Select .py file",
+                                              filetypes=[("Python files", '*.py')])
+
+
+    def exec_program():
+        program1 = filedialog.askopenfilename(initialdir="/", title="Select .exe file",
+                                              filetypes=[("Executable", '*.exe')])
+        os.system(program1)
+
+
+    # first full auto function --> precondition window/input/setup
+    def open_precon_window():
+        def print_e1e2():
+            e1 = entry1.get()
+            e2 = entry2.get()
+            e3 = entry3.get()
+            sleep(0.5)
+            confirm_splash = Toplevel()
+            confirm_splash.geometry("1366x768+0+0")
+            confirm_splash.title("Preconditioning confirmation...")
+            confirm_splash.attributes("-topmost", True)
+            confirm_splash_l1 = Label(confirm_splash, text="Please review the provided inputs summarised below."
+                                                           " \n\n\n\n\n\n\n\n\n\n\nIn the event of errors, please"
+                                                           " close this window, return to the app home screen and"
+                                                           " restart the program.",
+                                      font="Helvetica 20 bold")
+            confirm_splash_l1.place(x=0, y=25)
+            confirm_splash_l2a = Label(confirm_splash, text="Temperature(s) (\u2070C):", font="Helvetica 18 underline",
+                                       justify=CENTER)
+            confirm_splash_l2a.place(x=550, y=100)
+            confirm_splash_l2 = Label(confirm_splash, text="\nReactor internal = {} "
+                                                           "\nReagent bottle 1 = {} ".format(e1, e2),
+                                      font="Helvetica 16", justify=CENTER)
+            confirm_splash_l2.place(x=600, y=130)
+            confirm_splash_l2b = Label(confirm_splash, text="Flow rate(s) (m\u00B3s\u207B\u00B9):",
+                                       font="Helvetica 18 underline", justify=CENTER)
+            confirm_splash_l2b.place(x=550, y=250)
+            confirm_splash_l2e = Label(confirm_splash, text="\nInitial flow rate = {}".format(e3),
+                                       font="Helvetica 16", justify=CENTER)
+            confirm_splash_l2e.place(x=600, y=280)
+
+            confirm_splash_l3 = Label(confirm_splash, text="-- WARNING --\nDespite the 'fully autonomous' label of this"
+                                                           " program and the device it controls, it is NOT intended for"
+                                                           " unsupervised operation. \nFurthermore, please ensure all"
+                                                           " relevant risk assessments and COSHH requirements for this"
+                                                           " experiment have been completed... \n\n\nʕ•ᴥ•ʔ",
+                                      font="Helvetica 21", justify=CENTER, wraplength=1366, fg="red")
+            confirm_splash_l3.place(x=0, y=420)   # lol
+            # for KL /u1F49A
+            confirm_splash_l3 = Label(confirm_splash, text="ʕ•ᴥ•ʔ",
+                                      font="Helvetica 24", justify=CENTER, wraplength=1366, fg="Green")
+            confirm_splash_l3.place(x=0, y=620)
 
             # proceed button and next layer of the onion --> warmup screen --. to be followed by hand back to base app
             # ngl, this is because my coding sucks (5 weeks into the pain...)
