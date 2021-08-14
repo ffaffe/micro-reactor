@@ -151,13 +151,13 @@ while True:
                                                            " program and the device it controls, it is NOT intended for"
                                                            " unsupervised operation. \nFurthermore, please ensure all"
                                                            " relevant risk assessments and COSHH requirements for this"
-                                                           " experiment have been completed... \n\n\nʕ•ᴥ•ʔ",
+                                                           " experiment have been completed...",
                                       font="Helvetica 21", justify=CENTER, wraplength=1366, fg="red")
             confirm_splash_l3.place(x=0, y=420)   # lol
             # for KL /u1F49A
             confirm_splash_l3 = Label(confirm_splash, text="ʕ•ᴥ•ʔ",
                                       font="Helvetica 24", justify=CENTER, wraplength=1366, fg="Green")
-            confirm_splash_l3.place(x=0, y=620)
+            confirm_splash_l3.place(x=500, y=650)
 
             # proceed button and next layer of the onion --> warmup screen --. to be followed by hand back to base app
             # ngl, this is because my coding sucks (5 weeks into the pain...)
@@ -167,7 +167,7 @@ while True:
                 sleep(0.5)
                 warmup_scr = Toplevel()
                 warmup_scr.geometry("1366x768+0+0")
-                warmup_scr.title("Precondition status viewer")          # possibly/ hopefully make this reviewable from the app
+                warmup_scr.title("Precondition status viewer")          # possibly/ hopefully make this re-viewable from the app
                 warmup_scr.attributes("-topmost", True)
 
 
