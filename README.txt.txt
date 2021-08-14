@@ -11,4 +11,10 @@ Also... There is no cake. It was all a lie.
 
 Serious things to include:
 libs to install
+matlpotlib
+pandas
+adafruits
+
+
+
 LCD Screen flip instructions

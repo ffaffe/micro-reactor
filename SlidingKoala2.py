@@ -5,6 +5,8 @@ import time
 from time import sleep
 from all_temp_logger import main
 from ril import main1
+from PIL import Image
+import PIL
 # from PIL import ImageTk, Image      # pip3 install Pillow
 # from Sensor_test import sens_test
 # from VEML6070 import
@@ -34,8 +36,20 @@ canvas = Canvas(top, width=WIDTH, height=HEIGHT, bg='white')
 canvas.pack()
 
 # planning to make 'sliding' appear one letter at a time as KL slides down --> basic timer + 8 versions of cylinder#.png
-background_photo = PhotoImage(file='bg1.png')
-background = canvas.create_image(0, 0, image=background_photo, anchor=NW)
+background_photo = Image.open('gif_1.gif')
+PIL.Image.new(mode="RGB", size=(1024, 600))
+# background = canvas.createximage(0, 0, image=background_photo, anchor=NW)
+background_photo.seek(6)
+background_photo.show()
+
+with Image.open("gif_1.gif") as background_photo:
+   background_photo.seek(1)
+
+  #  try:
+   #     while 1:
+    #        background_photo.seek(background_photo.tell()+1)
+   # except EOFError:
+  #      pass
 
 photo_image = PhotoImage(file='KL3.png')
 my_image = canvas.create_image(150, 150, image=photo_image, anchor='center')
@@ -43,7 +57,7 @@ image_width = photo_image.width()
 image_height = photo_image.height()
 
 start_time = time.time()
-seconds = 1  # 12 second = full bounce #
+seconds = 6  # 12 second = full bounce #
 
 while True:
     coordinates = canvas.coords(my_image)
@@ -56,10 +70,10 @@ while True:
     time.sleep(0.01)
     current_time = time.time()
     elapsed_time = current_time - start_time
-    if 1 < elapsed_time < 2:
-        photo_image = PhotoImage(file='bg1_s.png')
-        canvas.move(my_image, xVelocity, yVelocity)
-        window.update()
+  #  if 1 < elapsed_time < 2:
+   #     photo_image = PhotoImage(file='bg1_s.png')
+    #    canvas.move(my_image, xVelocity, yVelocity)
+  #      window.update()
     if elapsed_time > seconds:
         sleep(1)
         top.destroy()
