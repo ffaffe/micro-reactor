@@ -15,6 +15,12 @@ import PIL
 # from all_light_reader import
 from precon_input import precon_inp
 import os
+import glob
+
+# making created/inputted variables globally accessible
+global e1
+global e2
+global e3
 
 # to add matplotlib in central space see below
 # https://www.youtube.com/watch?list=PLQVvvaa0QuDclKx-QpC9wntnURXVJqLyk&v=JQ7QP5rPvjU&feature=youtu.be
@@ -104,7 +110,7 @@ while True:
     #    if args == 9:                   # basic sensor test
     #        os.system(sens_test())
 
-    # creating function for add custom code button #
+    # creating function for buttons #
     def addCode():
         filename = filedialog.askopenfilename(initialdir="/", title="Select .py file",
                                               filetypes=[("Python files", '*.py')])
@@ -119,6 +125,9 @@ while True:
     # first full auto function --> precondition window/input/setup
     def open_precon_window():
         def print_e1e2():
+            global e1  # creating global variables from entries
+            global e2
+            global e3
             e1 = entry1.get()
             e2 = entry2.get()
             e3 = entry3.get()
@@ -153,7 +162,7 @@ while True:
                                                            " relevant risk assessments and COSHH requirements for this"
                                                            " experiment have been completed...",
                                       font="Helvetica 21", justify=CENTER, wraplength=1366, fg="red")
-            confirm_splash_l3.place(x=0, y=420)   # lol
+            confirm_splash_l3.place(x=0, y=420)  # lol
             # for KL /u1F49A
             confirm_splash_l3 = Label(confirm_splash, text="ʕ•ᴥ•ʔ",
                                       font="Helvetica 24", justify=CENTER, wraplength=1366, fg="Green")
@@ -167,14 +176,27 @@ while True:
                 sleep(0.5)
                 warmup_scr = Toplevel()
                 warmup_scr.geometry("1366x768+0+0")
-                warmup_scr.title("Precondition status viewer")          # possibly/ hopefully make this re-viewable from the app
+                warmup_scr.title("Precondition status viewer")  # possibly/ hopefully make this re-viewable from the app
                 warmup_scr.attributes("-topmost", True)
 
+                # proceed button
+                button_proc2 = Button(warmup_scr, text="Proceed...", font="Helvetica 14 bold",
+                                      pady=20, padx=50, activebackground="black", activeforeground="green",
+                                      cursor="tcross",
+                                      relief="ridge", bg="grey", command=proc_2_warmup)
+                button_proc2.place(x=1100, y=650)
 
+                # quit button in top corner
+                def kill_scr1():
+                    sleep(1)
+                    warmup_scr.destroy()
 
-
-
-
+                button_gen_quit = Button(warmup_scr, text="Quit...", font="Helvetica 14 bold",
+                                         activebackground="black", activeforeground="red",
+                                         cursor="circle", bitmap="error", relief="sunken", bg="grey", command=kill_scr1)
+                button_gen_quit.place(x=1326, y=10)
+                sleep(1)
+                precon_inp_win.destroy()
 
             button_proc1 = Button(confirm_splash, text="Proceed...", font="Helvetica 14 bold",
                                   pady=20, padx=50, activebackground="black", activeforeground="green", cursor="tcross",
@@ -185,6 +207,7 @@ while True:
             def kill_scr():
                 sleep(1)
                 confirm_splash.destroy()
+
             button_chick_o = Button(confirm_splash, text="Quit...", font="Helvetica 14 bold",
                                     pady=20, padx=50, activebackground="black", activeforeground="red",
                                     cursor="circle", relief="ridge", bg="grey", command=kill_scr)
@@ -309,8 +332,15 @@ while True:
                          relief="sunken")
     openFile.place(x=50, y=565)
 
+
+    # test
+    def print_precon_entr():
+        print(e1, e2, e3)
+
+
     # open terminal button --> facilitate code edit
-    openFile = tk.Button(canvas1, text="Launch Terminal...", padx=15, pady=5, fg="black", bg="yellow", relief="sunken")
+    openFile = tk.Button(canvas1, text="Launch Terminal...", padx=15, pady=5, fg="black", bg="yellow", relief="sunken",
+                         command=print_precon_entr)
     openFile.place(x=240, y=565)
 
     # run sensor test button

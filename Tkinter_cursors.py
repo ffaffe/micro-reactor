@@ -1,18 +1,21 @@
 from tkinter import *
 import tkinter as tk
 
+top = Toplevel()
+top.geometry("200x768+0+0")
+top.title("DEMO")
 
-top = tk.Tk()
 
-B1 = tk.Button(top, text ="arrow", relief=FLAT,\
+# reliefs and cursors
+B1 = tk.Button(top, text ="arrow/flat", relief=FLAT,\
                          cursor="arrow")
-B2 = tk.Button(top, text ="circle", relief=RAISED,\
+B2 = tk.Button(top, text ="circle/raised", relief=RAISED,\
                          cursor="circle")
-B3 = tk.Button(top, text ="clock", relief=SUNKEN,\
+B3 = tk.Button(top, text ="clock/sunken", relief=SUNKEN,\
                          cursor="clock")
-B4 = tk.Button(top, text ="cross", relief=GROOVE,\
+B4 = tk.Button(top, text ="cross/groove", relief=GROOVE,\
                          cursor="cross")
-B5 = tk.Button(top, text ="dotbox", relief=RIDGE,\
+B5 = tk.Button(top, text ="dotbox/ridge", relief=RIDGE,\
                          cursor="dotbox")
 B6 = tk.Button(top, text ="exchange", relief=RAISED,\
                          cursor="exchange")
@@ -47,6 +50,28 @@ B20 = tk.Button(top, text ="trek", relief=RAISED,\
 B21 = tk.Button(top, text ="watch", relief=RAISED,\
                          cursor="watch")
 
+# bitmaps
+B22 = tk.Button(top, text ="error", relief=RAISED,\
+                         bitmap="error")
+B23 = tk.Button(top, text ="gray75", relief=RAISED,\
+                         bitmap="gray75")
+B24 = tk.Button(top, text ="gray50", relief=RAISED,\
+                         bitmap="gray50")
+B25 = tk.Button(top, text ="gray25", relief=RAISED,\
+                         bitmap="gray25")
+B26 = tk.Button(top, text ="gray12", relief=RAISED,\
+                         bitmap="gray12")
+B27 = tk.Button(top, text ="hourglass", relief=RAISED,\
+                         bitmap="hourglass")
+B28 = tk.Button(top, text ="info", relief=RAISED,\
+                         bitmap="info")
+B29 = tk.Button(top, text ="questhead", relief=RAISED,\
+                         bitmap="questhead")
+B30 = tk.Button(top, text ="question", relief=RAISED,\
+                         bitmap="question")
+B31 = tk.Button(top, text ="warning", relief=RAISED,\
+                         bitmap="warning")
+
 B1.pack()
 B2.pack()
 B3.pack()
@@ -68,5 +93,16 @@ B18.pack()
 B19.pack()
 B20.pack()
 B21.pack()
+B22.pack()
+B23.pack()
+B24.pack()
+B25.pack()
+B26.pack()
+B27.pack()
+B28.pack()
+B29.pack()
+B30.pack()
+B31.pack()
+
 
 top.mainloop()
