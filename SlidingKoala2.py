@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 import tkinter as tk
+# from tkinter.ttk import *
 import time
 from time import sleep
 from all_temp_logger import main
@@ -17,10 +18,10 @@ from precon_input import precon_inp
 import os
 import glob
 
-# making created/inputted variables globally accessible
-global e1
-global e2
-global e3
+# making created/inputted variables globally accessible --> success!
+global e_ri
+global e_rb1
+global e_ifr
 
 # to add matplotlib in central space see below
 # https://www.youtube.com/watch?list=PLQVvvaa0QuDclKx-QpC9wntnURXVJqLyk&v=JQ7QP5rPvjU&feature=youtu.be
@@ -44,7 +45,7 @@ canvas.pack()
 
 # planning to make 'sliding' appear one letter at a time as KL slides down --> basic timer + 8 versions of cylinder#.png
 background_photo = PhotoImage(file='gif_1.gif')
-# PIL.Image.new(mode="RGB", size=(1366, 768))
+# PIL.Image.new(mode="RGB", size=(WIDTH, HEIGHT))
 background = canvas.create_image(0, 0, image=background_photo, anchor=NW)
 # background_photo.seek(6)
 # background_photo.show()
@@ -125,12 +126,12 @@ while True:
     # first full auto function --> precondition window/input/setup
     def open_precon_window():
         def print_e1e2():
-            global e1  # creating global variables from entries
-            global e2
-            global e3
-            e1 = entry1.get()
-            e2 = entry2.get()
-            e3 = entry3.get()
+            global e_ri  # creating global variables from entries
+            global e_rb1
+            global e_ifr
+            e_ri = entry1.get()
+            e_rb1 = entry2.get()
+            e_ifr = entry3.get()
             sleep(0.5)
             confirm_splash = Toplevel()
             confirm_splash.geometry("1366x768+0+0")
@@ -146,13 +147,13 @@ while True:
                                        justify=CENTER)
             confirm_splash_l2a.place(x=550, y=100)
             confirm_splash_l2 = Label(confirm_splash, text="\nReactor internal = {} "
-                                                           "\nReagent bottle 1 = {} ".format(e1, e2),
+                                                           "\nReagent bottle 1 = {} ".format(e_ri, e_rb1),
                                       font="Helvetica 16", justify=CENTER)
             confirm_splash_l2.place(x=600, y=130)
             confirm_splash_l2b = Label(confirm_splash, text="Flow rate(s) (m\u00B3s\u207B\u00B9):",
                                        font="Helvetica 18 underline", justify=CENTER)
             confirm_splash_l2b.place(x=550, y=250)
-            confirm_splash_l2e = Label(confirm_splash, text="\nInitial flow rate = {}".format(e3),
+            confirm_splash_l2e = Label(confirm_splash, text="\nInitial flow rate = {}".format(e_ifr),
                                        font="Helvetica 16", justify=CENTER)
             confirm_splash_l2e.place(x=600, y=280)
 
@@ -161,7 +162,7 @@ while True:
                                                            " unsupervised operation. \nFurthermore, please ensure all"
                                                            " relevant risk assessments and COSHH requirements for this"
                                                            " experiment have been completed...",
-                                      font="Helvetica 21", justify=CENTER, wraplength=1366, fg="red")
+                                      font="Helvetica 21", justify=CENTER, wraplength=WIDTH, fg="red")
             confirm_splash_l3.place(x=0, y=420)  # lol
             # for KL /u1F49A
             confirm_splash_l3 = Label(confirm_splash, text="ʕ•ᴥ•ʔ",
@@ -175,12 +176,16 @@ while True:
                 confirm_splash.destroy()
                 sleep(0.5)
                 warmup_scr = Toplevel()
+                canvas_wus = Canvas(warmup_scr, width=WIDTH, height=HEIGHT, bg='green')
                 warmup_scr.geometry("1366x768+0+0")
                 warmup_scr.title("Precondition status viewer")  # possibly/ hopefully make this re-viewable from the app
                 warmup_scr.attributes("-topmost", True)
 
+                canvas_wus.pack()
+
                 # proceed button
-                button_proc2 = Button(warmup_scr, text="Proceed...", font="Helvetica 14 bold",
+                # command possibly to run precon_iheater_func.py
+                button_proc2 = Button(canvas_wus, text="Proceed...", font="Helvetica 14 bold",
                                       pady=20, padx=50, activebackground="black", activeforeground="green",
                                       cursor="tcross",
                                       relief="ridge", bg="grey", command=proc_2_warmup)
@@ -191,9 +196,9 @@ while True:
                     sleep(1)
                     warmup_scr.destroy()
 
-                button_gen_quit = Button(warmup_scr, text="Quit...", font="Helvetica 14 bold",
+                button_gen_quit = Button(canvas_wus, text="Quit...", font="Helvetica 14 bold",
                                          activebackground="black", activeforeground="red",
-                                         cursor="circle", bitmap="error", relief="sunken", bg="grey", command=kill_scr1)
+                                         cursor="circle", bitmap="error", relief="raised", bg="grey", command=kill_scr1)
                 button_gen_quit.place(x=1326, y=10)
                 sleep(1)
                 precon_inp_win.destroy()
@@ -258,11 +263,11 @@ while True:
     root.attributes("-topmost", True)  # sets as topmost screen --> hides the dodgy pop ups I can't get rid of... #
 
     # Main app canvases #
-    canvas1 = tk.Canvas(root, height=768, width=1366, bg="#ecd2fe")
+    canvas1 = tk.Canvas(root, height=HEIGHT, width=WIDTH, bg="#ecd2fe")
     canvas1.pack()
 
     # bottom credits bar
-    canvas2 = tk.Canvas(root, height=20, width=1366, bg="grey")
+    canvas2 = tk.Canvas(root, height=20, width=WIDTH, bg="grey")
     canvas2.pack()
     canvas2.create_text(125, 12, fill="white", font="Times 10 italic bold",
                         text="Support: sghwest@student.liverpool.ac.uk")
@@ -272,7 +277,7 @@ while True:
     # canvas3a.place(relx=0, rely=0.04)
     # canvas3a.create_text(55, 10, fill="black", font="Times 11 italic", text="Main programs:")
 
-    canvas3 = tk.Canvas(root, height=20, width=1366, bg="white", highlightbackground="black")
+    canvas3 = tk.Canvas(root, height=20, width=WIDTH, bg="white", highlightbackground="black")
     canvas3.place(relx=0, rely=0.25)
     canvas3.create_text(958, 10, fill="black", font="Times 12 bold", text="Full System Halt!")
     canvas3.create_text(75, 10, fill="black", font="Times 12 bold", text="Fully autonomous")
@@ -282,11 +287,11 @@ while True:
     canvas4a.create_text(880, 10, fill="black", font="Times 11 bold italic", text="Temperature loggers:")
     canvas4a.create_text(150, 10, fill="black", font="Times 11 bold italic", text="Light loggers:")
 
-    canvas4b = tk.Canvas(root, height=20, width=1366, highlightthickness=0, bg="#ecd2fe")
+    canvas4b = tk.Canvas(root, height=20, width=WIDTH, highlightthickness=0, bg="#ecd2fe")
     canvas4b.place(relx=0, rely=0.6)
 
     # utility bar banner
-    canvas4 = tk.Canvas(root, height=20, width=1366, bg="white")
+    canvas4 = tk.Canvas(root, height=20, width=WIDTH, bg="white")
     canvas4.place(relx=0, rely=0.85)
     canvas4.create_text(32, 12, fill="black", font="Times 11", text="Utilities:")
 
@@ -333,9 +338,9 @@ while True:
     openFile.place(x=50, y=565)
 
 
-    # test
+    # test  --> DEL LINK IN OPEN TERMINAL BUTTON BELOW/
     def print_precon_entr():
-        print(e1, e2, e3)
+        print(e_ri, e_rb1, e_ifr)
 
 
     # open terminal button --> facilitate code edit

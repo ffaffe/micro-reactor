@@ -1,12 +1,13 @@
 # importing tkinter module
 from tkinter import *
 from tkinter.ttk import *
+import tkinter as tk
 
 # creating tkinter window
-root = Tk()
+top = tk.Tk()
 
 # Progress bar widget
-progress = Progressbar(root, orient=HORIZONTAL,
+progress = Progressbar(top, orient=HORIZONTAL,
                        length=100, mode='determinate')
 
 
@@ -15,7 +16,7 @@ progress = Progressbar(root, orient=HORIZONTAL,
 def bar():
     import time
     progress['value'] = 20
-    root.update_idletasks()
+    top.update_idletasks()
     time.sleep(1)
 
 
@@ -23,7 +24,7 @@ progress.pack(pady=10)
 
 # This button will initialize
 # the progress bar
-Button(root, text='Start', command=bar).pack(pady=10)
+Button(top, text='Start', command=bar).pack(pady=10)
 
 # infinite loop
 mainloop()
