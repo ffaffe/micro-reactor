@@ -15,6 +15,8 @@ def main():
     ts_5 = "/sys/bus/w1/devices/28-00000bc6dbf5/w1_slave"
     ts_6 = "/sys/bus/w1/devices/28-0319161bebb6/w1_slave"
 
+    ts_7 = "/sys/bus/w1/devices/28-00000bc6e47d/w1_slave"       # psu exhaust
+
     # uncomment below to add sample range --> number of temp values to be measured #
     # range = 0
 
@@ -37,7 +39,7 @@ def main():
     f = open(save_dir2 + ".csv", "a", newline="")
     c = csv.writer(f)
     c.writerow([strftime('%d-%m-%Y, %H:%M:%S')])
-    c.writerow(["Time:", "Sensor 1:", "Sensor 2:", "Sensor 3:", "Sensor 4:", "Sensor 5:", "Sensor 6:"])
+    c.writerow(["Time:", "Sensor 1:", "Sensor 2:", "Sensor 3:", "Sensor 4:", "Sensor 5:", "Sensor 6:", "Sensor 7:"])
 
     while True:
         # r += 1 # count up component of range argument above #
@@ -87,15 +89,22 @@ def main():
         (discard, sep, reading) = data.partition(' t=')
         t6 = float(reading) / 1000.0
 
+        # S7 #
+        f = open(ts_7, "r")
+        data = f.read()
+        f.close()
+        (discard, sep, reading) = data.partition(' t=')
+        t7 = float(reading) / 1000.0
+
         f = open(save_dir2 + ".csv", "a", newline="")
         c = csv.writer(f)
-        c.writerow([date_time, t1, t2, t3, t4, t5, t6])
+        c.writerow([date_time, t1, t2, t3, t4, t5, t6, t7])
         f.close()
 
         sleep(1.0)
 
     # 28-000008db19eb  28-00000bc54f93  28-0319160dfae2  w1_bus_master1
-    # 28-000008db57e2  28-00000bc6dbf5  28-0319161bebb6
+    # 28-000008db57e2  28-00000bc6dbf5  28-0319161bebb6  28-00000bc6e47d
 
 
 
