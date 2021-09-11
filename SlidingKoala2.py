@@ -88,6 +88,12 @@ while True:
         break
 
 while True:
+    if ts_psu >= 80:
+        continue
+        print('temperature')
+
+
+
     # creates run script function for any buttons that need it
     def runscript(args):
         if args == 1:  # all temp
@@ -263,7 +269,7 @@ while True:
     root.attributes("-topmost", True)  # sets as topmost screen --> hides the dodgy pop ups I can't get rid of... #
 
     # Main app canvases #
-    canvas1 = tk.Canvas(root, height=HEIGHT, width=WIDTH, bg="#ecd2fe")
+    canvas1 = tk.Canvas(root, height=HEIGHT, width=WIDTH, bg="#E8FFFF")  #F2FEB3, FEF6B3, E4D9FF, D1BFFF, FFF4F4, E8FFFF
     canvas1.pack()
 
     # bottom credits bar
@@ -279,15 +285,15 @@ while True:
 
     canvas3 = tk.Canvas(root, height=20, width=WIDTH, bg="white", highlightbackground="black")
     canvas3.place(relx=0, rely=0.25)
-    canvas3.create_text(958, 10, fill="black", font="Times 12 bold", text="Full System Halt!")
+    canvas3.create_text(1285, 10, fill="black", font="Times 12 bold", text="Full System Halt!")
     canvas3.create_text(75, 10, fill="black", font="Times 12 bold", text="Fully autonomous")
 
-    canvas4a = tk.Canvas(root, height=20, width=1024, highlightthickness=0, bg="#ecd2fe")
-    canvas4a.place(relx=0, rely=0.35)
-    canvas4a.create_text(880, 10, fill="black", font="Times 11 bold italic", text="Temperature loggers:")
-    canvas4a.create_text(150, 10, fill="black", font="Times 11 bold italic", text="Light loggers:")
+    canvas4a = tk.Canvas(root, height=20, width=1024, highlightthickness=0, bg="#E8FFFF")
+    canvas4a.place(relx=0, rely=0.3)
+    canvas4a.create_text(900, 10, fill="black", font="Times 11 bold italic", text="Temperature loggers:")
+    canvas4a.create_text(100, 10, fill="black", font="Times 11 bold italic", text="Light loggers:")
 
-    canvas4b = tk.Canvas(root, height=20, width=WIDTH, highlightthickness=0, bg="#ecd2fe")
+    canvas4b = tk.Canvas(root, height=20, width=WIDTH, highlightthickness=0, bg="#E8FFFF")
     canvas4b.place(relx=0, rely=0.6)
 
     # utility bar banner
@@ -318,7 +324,7 @@ while True:
     photo = PhotoImage(file="stopsign100x100.png")
     B1 = tk.Button(canvas1, text="Full System HALT", relief="raised", bg="white", fg="red", image=photo,
                    activebackground="black", activeforeground="black", width=100, height=100)
-    B1.place(x=905, y=40)
+    B1.place(x=1240, y=40)
 
     # RUN button
     BigShinyButton = tk.Button(root, text="GO!", font="Times 25 bold", padx=10, pady=22, fg="black", bg="red",
@@ -390,25 +396,25 @@ while True:
     atl_button = tk.Button(root, text="Full system...", font="Times 13 bold", padx=75, pady=6, fg="black",
                            bg="grey", relief="ridge", activebackground="white", activeforeground="blue",
                            command=lambda: runscript(1))
-    atl_button.place(x=750, y=260)
+    atl_button.place(x=1085, y=260)
 
     # run internal_reactor.py button
     ril_button = tk.Button(root, text="Reactor internal...", font="Times 13 bold", padx=57, pady=6, fg="black",
                            bg="grey", relief="ridge", activebackground="white", activeforeground="blue",
                            command=lambda: runscript(2))
-    ril_button.place(x=750, y=320)
+    ril_button.place(x=1085, y=320)
 
     # run lamp_temp.py button
     ltl_button = tk.Button(root, text="Lamp...", font="Times 13 bold", padx=98, pady=6, fg="black",
                            bg="grey", relief="ridge", activebackground="white", activeforeground="blue",
                            command=lambda: runscript(3))
-    ltl_button.place(x=750, y=380)
+    ltl_button.place(x=1085, y=380)
 
     # run bottle_temp.py button
     btl_button = tk.Button(root, text="Reagent bottles...", font="Times 13 bold", padx=62, pady=6, fg="black",
                            bg="grey", relief="ridge", activebackground="white", activeforeground="blue",
                            command=lambda: runscript(4))
-    btl_button.place(x=750, y=440)
+    btl_button.place(x=1085, y=440)
 
     # light loggers
 

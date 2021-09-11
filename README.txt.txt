@@ -15,6 +15,6 @@ matlpotlib
 pandas
 adafruits
 
-
+Dead pins = 22 and 7! --> essentially no GPIO pins remain --> please expand using MCP23017 I2C expander...
 
 LCD Screen flip instructions
