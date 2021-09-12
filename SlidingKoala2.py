@@ -207,6 +207,78 @@ while True:
                                               filetypes=[("Executable", '*.exe')])
         os.system(program1)
 
+    # manual mode screens/funtions
+    def manual_mode():
+        man_mode_scr = Toplevel(bg="#E8FFFF")
+        man_mode_scr.geometry("1366x768+0+0")
+        man_mode_scr.title("Manual reactor control...")
+        man_mode_scr.attributes("-topmost", True)
+
+        ri_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=120,
+                         highlightbackground="green", highlightcolor="red", label="Internal reactor temperature",
+                         length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
+                         sliderlength=50, tickinterval=20, troughcolor="green")
+        ri_slide.place(x=25, y=25)
+
+        rb1_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
+                         highlightbackground="green", highlightcolor="red", label="Reagent bottle 1 temperature",
+                         length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
+                         sliderlength=50, tickinterval=20, troughcolor="green")
+        rb1_slide.place(x=25, y=175)
+
+        rb2_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
+                         highlightbackground="green", highlightcolor="red", label="Reagent bottle 2 temperature",
+                         length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
+                         sliderlength=50, tickinterval=20, troughcolor="green")
+        rb2_slide.place(x=25, y=325)
+
+        rb3_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
+                         highlightbackground="green", highlightcolor="red", label="Reagent bottle 3 temperature",
+                         length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
+                         sliderlength=50, tickinterval=20, troughcolor="green")
+        rb3_slide.place(x=25, y=475)
+
+        lamp_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=1,
+                         highlightbackground="green", highlightcolor="red", label="Lamp",
+                         length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
+                         sliderlength=150, tickinterval=1, troughcolor="Blue")
+        lamp_slide.place(x=770, y=25)
+
+        fr1_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
+                         highlightbackground="green", highlightcolor="red", label="Flow rate 1",
+                         length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
+                         sliderlength=50, tickinterval=20, troughcolor="green")
+        fr1_slide.place(x=770, y=175)
+
+        fr2_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
+                         highlightbackground="green", highlightcolor="red", label="Flow rate 2",
+                         length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
+                         sliderlength=50, tickinterval=20, troughcolor="green")
+        fr2_slide.place(x=770, y=325)
+
+        fr3_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
+                         highlightbackground="green", highlightcolor="red", label="Flow rate 3",
+                         length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
+                         sliderlength=50, tickinterval=20, troughcolor="green")
+        fr3_slide.place(x=770, y=475)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # first full auto function --> precondition window/input/setup
     def open_precon_window():
@@ -411,13 +483,19 @@ while True:
     photo = PhotoImage(file="stopsign140x140.png")
     B1 = tk.Button(canvas1, text="Full System HALT", relief="raised", bg="white", fg="red", image=photo,
                    activebackground="black", activeforeground="black", width=167, height=140)
-    B1.place(x=1175, y=40)
+    B1.place(x=1175, y=600)
 
     # RUN button
     BigShinyButton = tk.Button(root, text="GO!", font="Times 25 bold", padx=35, pady=40, fg="black", bg="red",
                                relief="raised", activebackground="Blue", activeforeground="green",
                                command=open_precon_window)
     BigShinyButton.place(x=20, y=42)
+
+    # Manual mode button
+    man_mode_button = tk.Button(root, text="Manual reactor control", font="Times 18 bold", padx=35, pady=20,
+                                fg="black", bg="green", relief="raised", activebackground="Blue",
+                                activeforeground="green", wraplength=100, command=manual_mode)
+    man_mode_button.place(x=1175, y=42)
 
     # custom code button
     openFile = tk.Button(canvas1, text="Import custom code...", padx=10, pady=5, fg="black", bg="yellow",
@@ -429,7 +507,6 @@ while True:
     openFile = tk.Button(canvas1, text="Launch Thonny IDE...", padx=10, pady=5, fg="black", bg="yellow",
                          relief="sunken")
     openFile.place(x=50, y=720)
-
 
     # test  --> DEL LINK IN OPEN TERMINAL BUTTON BELOW/
     def print_precon_entr():
