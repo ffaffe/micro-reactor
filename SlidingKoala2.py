@@ -28,6 +28,16 @@ global e_ri_f
 global e_rb1_f
 global e_ifr_f
 
+# manual mode entries
+global man_ri
+global man_rb1
+global man_rb2
+global man_rb3
+global man_lamp
+global man_fr1
+global man_fr2
+global man_fr3
+
 # defining temp sensors being used and creating temp values
 # considering removing direct read and replacing with csv read
 # ts_psu = "/sys/bus/w1/devices/28-00000bc6e47d/w1_slave"
@@ -67,7 +77,7 @@ t_rb1 = 1
 
 # splash screen params #
 WIDTH = 1366
-HEIGHT = 768
+HEIGHT = 695
 xVelocity = 0
 yVelocity = 1  # 1 ideal #
 
@@ -210,74 +220,98 @@ while True:
     # manual mode screens/funtions
     def manual_mode():
         man_mode_scr = Toplevel(bg="#E8FFFF")
-        man_mode_scr.geometry("1366x768+0+0")
+        man_mode_scr.geometry("1366x695+0+0")
         man_mode_scr.title("Manual reactor control...")
         man_mode_scr.attributes("-topmost", True)
 
+        man_ri = DoubleVar
         ri_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=120,
                          highlightbackground="green", highlightcolor="red", label="Internal reactor temperature",
                          length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
                          sliderlength=50, tickinterval=20, troughcolor="green")
         ri_slide.place(x=25, y=25)
+        man_ri = ri_slide.get()
 
+        man_rb1 = DoubleVar
         rb1_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
                          highlightbackground="green", highlightcolor="red", label="Reagent bottle 1 temperature",
                          length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
                          sliderlength=50, tickinterval=20, troughcolor="green")
         rb1_slide.place(x=25, y=175)
+        man_rb1 = rb1_slide.get()
 
+        man_rb2 = DoubleVar
         rb2_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
                          highlightbackground="green", highlightcolor="red", label="Reagent bottle 2 temperature",
                          length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
                          sliderlength=50, tickinterval=20, troughcolor="green")
         rb2_slide.place(x=25, y=325)
+        man_rb2 = rb2_slide.get()
 
+        man_rb3 = DoubleVar
         rb3_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
                          highlightbackground="green", highlightcolor="red", label="Reagent bottle 3 temperature",
                          length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
                          sliderlength=50, tickinterval=20, troughcolor="green")
         rb3_slide.place(x=25, y=475)
+        man_rb3 = rb3_slide.get()
 
+        man_lamp = DoubleVar
         lamp_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=1,
                          highlightbackground="green", highlightcolor="red", label="Lamp",
                          length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
                          sliderlength=150, tickinterval=1, troughcolor="Blue")
         lamp_slide.place(x=770, y=25)
+        man_lamp = lamp_slide.get()
 
+        man_fr1 = DoubleVar()
         fr1_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
                          highlightbackground="green", highlightcolor="red", label="Flow rate 1",
                          length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
                          sliderlength=50, tickinterval=20, troughcolor="green")
         fr1_slide.place(x=770, y=175)
+        man_fr1 = fr1_slide.get()
 
+        man_fr2 = DoubleVar()
         fr2_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
                          highlightbackground="green", highlightcolor="red", label="Flow rate 2",
                          length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
                          sliderlength=50, tickinterval=20, troughcolor="green")
         fr2_slide.place(x=770, y=325)
+        man_fr2 = fr2_slide.get()
 
+        man_fr3 = DoubleVar()
         fr3_slide = Scale(man_mode_scr, bg="black", bd=10, digits=5, font="Helvetica 16", fg="white", from_=0, to_=100,
                          highlightbackground="green", highlightcolor="red", label="Flow rate 3",
                          length=550, width=10, orient=HORIZONTAL, relief=SUNKEN, repeatdelay=400, resolution=1,
-                         sliderlength=50, tickinterval=20, troughcolor="green")
+                         sliderlength=50, tickinterval=20, troughcolor="green", variable=man_fr3)
         fr3_slide.place(x=770, y=475)
+        man_fr3 = fr3_slide.get()
 
 
+        # submit/update button function
+        def show_values():
+            global man_ri
+            global man_rb1
+            global man_rb2
+            global man_rb3
+            global man_lamp
+            global man_fr1
+            global man_fr2
+            global man_fr3
 
+            man_ri = ri_slide.get()
+            man_rb1 = rb1_slide.get()
+            man_rb2 = rb2_slide.get()
+            man_rb3 = rb3_slide.get()
+            man_lamp = lamp_slide.get()
+            man_fr1 = fr1_slide.get()
+            man_fr2 = fr2_slide.get()
+            man_fr3 = fr3_slide.get()
+            print(man_ri, man_rb1, man_rb2, man_rb3, man_lamp, man_fr1, man_fr2, man_fr3)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        update_button = Button(man_mode_scr, text="Boom!", command= show_values, padx=625, pady=10)
+        update_button.place(x=20, y=620)
 
 
     # first full auto function --> precondition window/input/setup
@@ -291,7 +325,7 @@ while True:
             e_ifr = entry3.get()
             sleep(0.5)
             confirm_splash = Toplevel()
-            confirm_splash.geometry("1366x768+0+0")
+            confirm_splash.geometry("1366x695+0+0")
             confirm_splash.title("Preconditioning confirmation...")
             confirm_splash.attributes("-topmost", True)
             confirm_splash_l1 = Label(confirm_splash, text="Please review the provided inputs summarised below."
@@ -335,7 +369,7 @@ while True:
                     sleep(0.5)
                     warmup_scr = Toplevel()
                     canvas_wus = Canvas(warmup_scr, width=WIDTH, height=HEIGHT, bg='green')
-                    warmup_scr.geometry("1366x768+0+0")
+                    warmup_scr.geometry("1366x695+0+0")
                     warmup_scr.title(
                         "Precondition status viewer")  # possibly/ hopefully make this re-viewable from the app
                     warmup_scr.attributes("-topmost", True)
@@ -430,25 +464,34 @@ while True:
                         bg="#E8FFFF")  # F2FEB3, FEF6B3, E4D9FF, D1BFFF, FFF4F4, E8FFFF, ebfff1
     canvas1.pack()
 
+
+    # test button function
+    def show_values():
+        print(man_fr3)
+
+
+    test_button1 = Button(root, text="Boom!", command=show_values, padx = 100, pady=100)
+    test_button1.place(x=600, y=50)
+
     # bottom credits bar
     canvas2 = tk.Canvas(root, height=20, width=WIDTH, bg="grey")
     canvas2.pack()
     canvas2.create_text(125, 12, fill="black", font="Times 10 italic bold",
                         text="Support: sghwest@student.liverpool.ac.uk")
-    canvas2.create_text(1265, 10, fill="orange", font="Times 11 italic bold", text="A Sliding Koala Labs System")
+    canvas2.create_text(1265, 10, fill="#27f80e", font="Times 11 italic bold", text="A Sliding Koala Labs System")
 
     # canvas3a = tk.Canvas(root, height=20, width=1024, highlightthickness=0, bg="#ecd2fe")
     # canvas3a.place(relx=0, rely=0.04)
     # canvas3a.create_text(55, 10, fill="black", font="Times 11 italic", text="Main programs:")
 
     canvas3 = tk.Canvas(root, height=20, width=WIDTH, bg="white", highlightbackground="black")
-    canvas3.place(relx=0, rely=0.25)
-    canvas3.create_text(1260, 10, fill="black", font="Times 12 bold", text="Full System Halt!")
-    canvas3.create_text(100, 10, fill="black", font="Times 12 bold", text="Fully autonomous")
+    canvas3.place(relx=0, rely=0.19)
+    canvas3.create_text(115, 10, fill="black", font="Times 12 bold", text="Fully autonomous")
+    canvas3.create_text(685, 10, fill="black", font="Times 12 bold", text="Full System Halt!")
+    canvas3.create_text(1270, 10, fill="black", font="Times 12 bold", text="Manual Mode")
 
     canvas4a = tk.Canvas(root, height=20, width=WIDTH, highlightthickness=0, bg="#E8FFFF")
-    canvas4a.place(relx=0, rely=0.3)
-    canvas4a.create_text(1215, 7, fill="black", font="Times 11 bold italic", text="Temperature loggers:")
+    canvas4a.place(relx=0, rely=0.24)
     canvas4a.create_text(1215, 7, fill="black", font="Times 11 bold italic", text="Temperature loggers:")
     canvas4a.create_text(150, 7, fill="black", font="Times 11 bold italic", text="Light loggers:")
 
@@ -463,12 +506,12 @@ while True:
     # central graph
     graph1 = PhotoImage(file="graph_small.png")  # to be replaced with matplotlib live plot eventually
     canvas6 = tk.Canvas(root, height=400, width=700, bg="green")
-    canvas6.place(relx=0.24, rely=0.32)
+    canvas6.place(relx=0.24, rely=0.25)
     canvas6.create_image(4, 4, image=graph1, anchor=NW)
 
     # top image / pseudo progress bar
-    canvas7 = tk.Canvas(root, height=75, width=970, bg="green")
-    canvas7.place(relx=0.138, rely=0.09)
+    canvas7 = tk.Canvas(root, height=75, width=900, bg="green")
+    canvas7.place(relx=0.175, rely=0.06)
     canvas7.create_text(500, 40, fill="orange", font="Times 16 italic bold",
                         text="Cutesy animated koala gif/progress bar"
                              " coming when/if I cba...")
@@ -483,16 +526,16 @@ while True:
     photo = PhotoImage(file="stopsign140x140.png")
     B1 = tk.Button(canvas1, text="Full System HALT", relief="raised", bg="white", fg="red", image=photo,
                    activebackground="black", activeforeground="black", width=167, height=140)
-    B1.place(x=1175, y=600)
+    B1.place(x=600, y=20)
 
     # RUN button
-    BigShinyButton = tk.Button(root, text="GO!", font="Times 25 bold", padx=35, pady=40, fg="black", bg="red",
+    BigShinyButton = tk.Button(root, text="Auto...", font="Times 18 bold", padx=50, pady=20, fg="black", bg="red",
                                relief="raised", activebackground="Blue", activeforeground="green",
                                command=open_precon_window)
     BigShinyButton.place(x=20, y=42)
 
     # Manual mode button
-    man_mode_button = tk.Button(root, text="Manual reactor control", font="Times 18 bold", padx=35, pady=20,
+    man_mode_button = tk.Button(root, text="Manual...", font="Times 18 bold", padx=35, pady=20,
                                 fg="black", bg="green", relief="raised", activebackground="Blue",
                                 activeforeground="green", wraplength=100, command=manual_mode)
     man_mode_button.place(x=1175, y=42)
@@ -501,12 +544,12 @@ while True:
     openFile = tk.Button(canvas1, text="Import custom code...", padx=10, pady=5, fg="black", bg="yellow",
                          relief="sunken",
                          command=addCode)
-    openFile.place(x=615, y=720)
+    openFile.place(x=615, y=653)
 
     # launch Thonny IDE button --> facilitate code edit
     openFile = tk.Button(canvas1, text="Launch Thonny IDE...", padx=10, pady=5, fg="black", bg="yellow",
                          relief="sunken")
-    openFile.place(x=50, y=720)
+    openFile.place(x=50, y=653)
 
     # test  --> DEL LINK IN OPEN TERMINAL BUTTON BELOW/
     def print_precon_entr():
@@ -516,17 +559,17 @@ while True:
     # open terminal button --> facilitate code edit
     openFile = tk.Button(canvas1, text="Launch Terminal...", padx=15, pady=5, fg="black", bg="yellow", relief="sunken",
                          command=print_precon_entr)
-    openFile.place(x=240, y=720)
+    openFile.place(x=240, y=653)
 
     # run sensor test button
     st_button = tk.Button(root, text="Run sensor test...", padx=20, pady=5, fg="black", bg="yellow", relief="sunken",
                           activebackground="white", activeforeground="black", command=lambda: runscript(9))
-    st_button.place(x=425, y=720)
+    st_button.place(x=425, y=653)
 
     # show README.txt button
     readme_button = tk.Button(root, text="Show README...", padx=25, pady=5, fg="black", bg="yellow", relief="sunken",
                               activebackground="white", activeforeground="black")
-    readme_button.place(x=810, y=720)
+    readme_button.place(x=810, y=653)
 
 
     # About system button
@@ -552,7 +595,7 @@ while True:
 
     about_sys_button = tk.Button(root, relief="raised", activebackground="black", activeforeground="white",
                                  bitmap="info", command=open_Rme)
-    about_sys_button.place(x=1000, y=720)
+    about_sys_button.place(x=1325, y=655)
 
     # temp loggers
 
@@ -560,25 +603,25 @@ while True:
     atl_button = tk.Button(root, text="Full system...", font="Times 13 bold", padx=75, pady=28, fg="black",
                            bg="grey", relief="ridge", activebackground="white", activeforeground="blue",
                            command=lambda: runscript(1))
-    atl_button.place(x=1085, y=260)
+    atl_button.place(x=1085, y=200)
 
     # run internal_reactor.py button
     ril_button = tk.Button(root, text="Reactor internal...", font="Times 13 bold", padx=57, pady=28, fg="black",
                            bg="grey", relief="ridge", activebackground="white", activeforeground="blue",
                            command=lambda: runscript(2))
-    ril_button.place(x=1085, y=365)
+    ril_button.place(x=1085, y=305)
 
     # run lamp_temp.py button
     ltl_button = tk.Button(root, text="Lamp...", font="Times 13 bold", padx=98, pady=28, fg="black",
                            bg="grey", relief="ridge", activebackground="white", activeforeground="blue",
                            command=lambda: runscript(3))
-    ltl_button.place(x=1085, y=470)
+    ltl_button.place(x=1085, y=410)
 
     # run bottle_temp.py button
     btl_button = tk.Button(root, text="Reagent bottles...", font="Times 13 bold", padx=62, pady=28, fg="black",
                            bg="grey", relief="ridge", activebackground="white", activeforeground="blue",
                            command=lambda: runscript(4))
-    btl_button.place(x=1085, y=575)
+    btl_button.place(x=1085, y=515)
 
     # light loggers
 
@@ -586,25 +629,25 @@ while True:
     all_button = tk.Button(root, text="All sensors...", font="Times 13 bold", padx=77, pady=28, fg="black",
                            bg="grey", relief="ridge", activebackground="white", activeforeground="green",
                            command=lambda: runscript(5))
-    all_button.place(x=20, y=260)
+    all_button.place(x=20, y=200)
 
     # run VEML6070.py button
     v6070_button = tk.Button(root, text="VEML6070...", font="Times 13 bold", padx=75, pady=28, fg="black",
                              bg="grey", relief="ridge", activebackground="white", activeforeground="green",
                              command=lambda: runscript(6))
-    v6070_button.place(x=20, y=365)
+    v6070_button.place(x=20, y=305)
 
     # run VEML7700.py button
     v7700_button = tk.Button(root, text="VEML7700...", font="Times 13 bold", padx=75, pady=28, fg="black",
                              bg="grey", relief="ridge", activebackground="white", activeforeground="green",
                              command=lambda: runscript(7))
-    v7700_button.place(x=20, y=470)
+    v7700_button.place(x=20, y=410)
 
     # run TSL2591.py button
     tsl_button = tk.Button(root, text="TSL2591...", font="Times 13 bold", padx=85, pady=28, fg="black",
                            bg="grey", relief="ridge", activebackground="white", activeforeground="green",
                            command=lambda: runscript(8))
-    tsl_button.place(x=20, y=575)
+    tsl_button.place(x=20, y=515)
 
     window.destroy()
     root.mainloop()
